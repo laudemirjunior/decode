@@ -50,7 +50,7 @@ router.get("/all", async (req, res, next) => {
 
   url.forEach((item) =>
     newUrl.push({
-      code: item.url,
+      url: item.url,
       hits: item.hits,
     })
   );

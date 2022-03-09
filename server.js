@@ -4,7 +4,7 @@ const bp = require("body-parser");
 const app = express();
 const mongoose = require("mongoose");
 const cors = require("cors");
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 app.use(cors());
 app.use(express.json());
@@ -25,5 +25,5 @@ const urlRoute = require("./src/controllers/urlRoute");
 app.use("/", urlRoute);
 
 app.listen(PORT, () => {
-  console.log(`http://localhost:3000/${PORT}`);
+  console.log("Running");
 });
