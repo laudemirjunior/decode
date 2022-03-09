@@ -3,7 +3,9 @@ const express = require("express");
 const bp = require("body-parser");
 const app = express();
 const mongoose = require("mongoose");
+const cors = require("cors");
 
+app.use(cors());
 app.use(express.json());
 app.use(bp.json());
 app.use(bp.urlencoded({ extended: true }));
