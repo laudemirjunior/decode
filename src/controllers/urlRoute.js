@@ -32,16 +32,12 @@ router.post("/", async (req, res) => {
 
 router.get("/my", async (req, res, next) => {
   const { id } = req.body;
-  const url = await Url.find({ user: id });
-  let newUrl = [];
-
-  url.forEach((item) =>
-    newUrl.push({
-      code: item.url,
-      hits: item.hits,
-    })
-  );
-  res.status(200).json(url);
+  console.log(id);
+  if (id) {
+    const url = await Url.find({ id_user: id });
+    res.status(200).json(url);
+  }
+  res.status(404).json({ msg: "not found" });
 });
 
 router.get("/all", async (req, res, next) => {
