@@ -4,7 +4,7 @@ const bp = require("body-parser");
 const app = express();
 const mongoose = require("mongoose");
 const cors = require("cors");
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT;
 
 app.use(cors());
 app.use(bp.json());
@@ -13,10 +13,10 @@ app.use(express.json());
 const dbUser = process.env.DB_USER;
 const dbPassword = process.env.DB_PASSWORD;
 
-const userRoute = require("./src/controllers/userRoute");
+const userRoute = require("./controllers/userRoute");
 app.use("/", userRoute);
 
-const urlRoute = require("./src/controllers/urlRoute");
+const urlRoute = require("./controllers/urlRoute");
 app.use("/", urlRoute);
 
 mongoose.connect(
