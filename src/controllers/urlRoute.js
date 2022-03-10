@@ -3,19 +3,23 @@ const router = express.Router();
 const checkToken = require("../functions/checkToken");
 const generator = require("../functions/generador");
 const Url = require("../models/Url");
+const validUrl = require("../functions/validUrl");
 
 router.post("/", async (req, res) => {
   const url = req.body.url;
+
+  if (!validUrl(url)) {
+    res.status(404).json({ msg: "not found" });
+  }
+
   const id_user = req.body.id_user;
-
-  const exist = await Url.findOne({ url: url });
-
-  if (exist) {
-    return res
+  let exist = await Url.findOne({ url: url });
+  if (exist !== null) {
+    res
       .status(200)
       .json({ url: `https://api-decode.herokuapp.com/${exist.code}` });
   } else {
-    const code = generator();
+    let code = generator();
     const hits = 0;
     const newUrl = new Url({
       code,
@@ -24,14 +28,12 @@ router.post("/", async (req, res) => {
       id_user,
     });
     await newUrl.save();
-    return res
-      .status(201)
-      .json({ url: `https://api-decode.herokuapp.com/${code}` });
+    res.status(201).json({ url: `https://api-decode.herokuapp.com/${code}` });
   }
 });
 
-router.get("/my", async (req, res, next) => {
-  const { id } = req.body;
+router.get("/my/:id", async (req, res, next) => {
+  const id = req.params.id;
   console.log(id);
   if (id) {
     const url = await Url.find({ id_user: id });
@@ -64,8 +66,8 @@ router.get("/:id", async (req, res, next) => {
   return res.status(404).json({ msg: "not found" });
 });
 
-router.delete("/", checkToken, async (req, res, next) => {
-  const { code, id_user } = req.body;
+router.delete("/:code/:id_user", checkToken, async (req, res, next) => {
+  const { id_user, code } = req.params;
   const url = await Url.findOne({ code: code });
   try {
     if (id_user === url.id_user && code === url.code) {
