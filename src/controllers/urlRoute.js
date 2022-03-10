@@ -39,7 +39,7 @@ router.get("/", async (req, res, next) => {
 
   url.forEach((item) =>
     newUrl.push({
-      url: item.url,
+      url: item.url.split("//")[1].split(".com")[0],
       hits: item.hits,
     })
   );
