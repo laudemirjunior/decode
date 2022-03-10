@@ -16,7 +16,7 @@ router.post("/register", async (req, res) => {
   if (!password) {
     return res.status(422).json({ msg: "mandatory password" });
   }
-  if (password === confirmPassword) {
+  if (password !== confirmPassword) {
     return res.status(422).json({ msg: "passwords don't match" });
   }
   if (await User.findOne({ email: email })) {
