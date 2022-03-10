@@ -8,4 +8,4 @@ const generator = () => {
   return code;
 };
 
-export default generator;
+module.exports = generator;

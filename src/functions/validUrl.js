@@ -11,4 +11,4 @@ const validUrl = (str) => {
   return !!pattern.test(str);
 };
 
-export default validUrl;
+module.exports = validUrl;
