@@ -4,7 +4,7 @@ const express = require("express");
 const bp = require("body-parser");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const PORT = process.env.PORT;
+const post = process.env.PORT | 8080;
 
 const app = express();
 
@@ -25,4 +25,6 @@ mongoose.connect(
   `mongodb+srv://${dbUser}:${dbPassword}@cluster0.v2z3i.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`
 );
 
-app.listen(PORT);
+app.listen(port, () => {
+  console.log(`App is running at the port ${port}`);
+});

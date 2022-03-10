@@ -2,10 +2,13 @@
   "name": "api-encode",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
+  "engines": {
+    "node": "14.17.5"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon src/server.js"
+    "start": "nodemon --exec babel-node src/server.js"
   },
   "keywords": [],
   "author": "",
