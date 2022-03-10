@@ -33,17 +33,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.get("/url/:id", async (req, res, next) => {
-  const id = req.params.id;
-  console.log(id);
-  if (id) {
-    const url = await Url.find({ id_user: id });
-    res.status(200).json(url);
-  }
-  res.status(404).json({ msg: "not found" });
-});
-
-router.get("/url/all", async (req, res, next) => {
+router.get("/", async (req, res, next) => {
   const url = await Url.find().sort({ hits: -1 }).limit(100);
   const newUrl = [];
 
@@ -65,6 +55,15 @@ router.get("/:id", async (req, res, next) => {
     return res.redirect(url.url);
   }
   return res.status(404).json({ msg: "not found" });
+});
+
+router.get("/url/:id", async (req, res, next) => {
+  const id = req.params.id;
+  if (id) {
+    const url = await Url.find({ id_user: id });
+    res.status(200).json(url);
+  }
+  res.status(404).json({ msg: "not found" });
 });
 
 router.delete("/:code/:id_user", checkToken, async (req, res, next) => {
