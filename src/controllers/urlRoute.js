@@ -10,7 +10,7 @@ router.post("/", async (req, res) => {
   const url = req.body.url;
 
   if (!validUrl(url)) {
-    res.status(404).json({ msg: "not found" });
+    return res.status(404).json({ msg: "not found" });
   }
 
   const id_user = req.body.id_user;
