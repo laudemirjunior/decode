@@ -15,10 +15,10 @@ app.use(express.json());
 const dbUser = process.env.DB_USER;
 const dbPassword = process.env.DB_PASSWORD;
 
-const userRoute = require("./controllers/userRoute");
+const userRoute = require("./src/controllers/userRoute");
 app.use("/", userRoute);
 
-const urlRoute = require("./controllers/urlRoute");
+const urlRoute = require("./src/controllers/urlRoute");
 app.use("/", urlRoute);
 
 mongoose.connect(
