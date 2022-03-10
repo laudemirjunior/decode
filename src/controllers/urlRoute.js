@@ -1,9 +1,10 @@
 const express = require("express");
-const router = express.Router();
 const checkToken = require("../functions/checkToken");
 const generator = require("../functions/generador");
-const Url = require("../models/Url");
 const validUrl = require("../functions/validUrl");
+const Url = require("../models/Url");
+
+const router = express.Router();
 
 router.post("/", async (req, res) => {
   const url = req.body.url;
@@ -32,7 +33,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.get("/my/:id", async (req, res, next) => {
+router.get("/url/:id", async (req, res, next) => {
   const id = req.params.id;
   console.log(id);
   if (id) {
@@ -42,7 +43,7 @@ router.get("/my/:id", async (req, res, next) => {
   res.status(404).json({ msg: "not found" });
 });
 
-router.get("/all", async (req, res, next) => {
+router.get("/url/all", async (req, res, next) => {
   const url = await Url.find().sort({ hits: -1 }).limit(100);
   const newUrl = [];
 
