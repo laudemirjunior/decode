@@ -37,7 +37,7 @@ router.get("/", async (req, res, next) => {
 
   url.forEach((item) =>
     newUrl.push({
-      url: item.url.split("//")[1].split(".")[1].split(".")[0],
+      url: item.url,
       code: item.code,
       hits: item.hits,
     })
