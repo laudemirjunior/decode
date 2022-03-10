@@ -16,9 +16,7 @@ router.post("/", async (req, res) => {
   const id_user = req.body.id_user;
   let exist = await Url.findOne({ url: url });
   if (exist !== null) {
-    res
-      .status(200)
-      .json({ url: `https://api-decode.herokuapp.com/${exist.code}` });
+    res.status(200).json({ url: `https://delc.herokuapp.com/${exist.code}` });
   } else {
     let code = generator();
     const hits = 0;
@@ -29,7 +27,7 @@ router.post("/", async (req, res) => {
       id_user,
     });
     await newUrl.save();
-    res.status(201).json({ url: `https://api-decode.herokuapp.com/${code}` });
+    res.status(201).json({ url: `https://delc.herokuapp.com/${code}` });
   }
 });
 
