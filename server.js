@@ -19,10 +19,10 @@ mongoose.connect(
   `mongodb+srv://${dbUser}:${dbPassword}@cluster0.v2z3i.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`
 );
 
-const userRoute = require("./controllers/userRoute");
+const userRoute = require("./src/controllers/userRoute");
 app.use("/", userRoute);
 
-const urlRoute = require("./controllers/urlRoute");
+const urlRoute = require("./src/controllers/urlRoute");
 app.use("/", urlRoute);
 
 app.listen(PORT, () => {
