@@ -16,7 +16,7 @@ router.post("/", async (req, res) => {
   const id_user = req.body.id_user;
   let exist = await Url.findOne({ url: url });
   if (exist !== null) {
-    res.status(200).json({ url: `https://delc.herokuapp.com/${exist.code}` });
+    res.status(200).json({ code: `https://delc.herokuapp.com/${exist.code}` });
   } else {
     let code = generator();
     const hits = 0;
@@ -27,7 +27,7 @@ router.post("/", async (req, res) => {
       id_user,
     });
     await newUrl.save();
-    res.status(201).json({ url: `https://delc.herokuapp.com/${code}` });
+    res.status(201).json({ code: `https://delc.herokuapp.com/${code}` });
   }
 });
 
@@ -38,6 +38,7 @@ router.get("/", async (req, res, next) => {
   url.forEach((item) =>
     newUrl.push({
       url: item.url.split("//")[1].split(".")[1].split(".")[0],
+      code: `https://delc.herokuapp.com/${code}`,
       hits: item.hits,
     })
   );
