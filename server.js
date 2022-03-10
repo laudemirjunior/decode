@@ -15,15 +15,15 @@ app.use(express.json());
 const dbUser = process.env.DB_USER;
 const dbPassword = process.env.DB_PASSWORD;
 
+mongoose.connect(
+  `mongodb+srv://${dbUser}:${dbPassword}@cluster0.v2z3i.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`
+);
+
 const userRoute = require("./src/controllers/userRoute");
 app.use("/", userRoute);
 
 const urlRoute = require("./src/controllers/urlRoute");
 app.use("/", urlRoute);
-
-mongoose.connect(
-  `mongodb+srv://${dbUser}:${dbPassword}@cluster0.v2z3i.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`
-);
 
 app.listen(port, () => {
   console.log(`App is running at the port ${port}`);
