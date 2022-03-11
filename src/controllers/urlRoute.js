@@ -32,7 +32,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.get("/", async (req, res, next) => {
+router.get("/", async (req, res) => {
   const url = await Url.find().sort({ hits: -1 }).limit(100);
   const newUrl = [];
 
@@ -48,7 +48,7 @@ router.get("/", async (req, res, next) => {
   res.status(200).send(newUrl);
 });
 
-router.get("/:id", async (req, res, next) => {
+router.get("/:id", async (req, res) => {
   const code = req.params.id;
   const url = await Url.findOne({ code: code });
   if (url) {
@@ -64,7 +64,7 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-router.get("/url/:id", async (req, res, next) => {
+router.get("/url/:id", async (req, res) => {
   const id = req.params.id;
   if (id) {
     const url = await Url.find({ id_user: id });
