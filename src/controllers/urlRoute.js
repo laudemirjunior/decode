@@ -8,15 +8,20 @@ const router = express.Router();
 
 router.post("/", async (req, res) => {
   const url = req.body.url;
+  const id_user = req.body.id_user;
+  let exist = await Url.findOne({ url: url, id_user: id_user });
 
   if (!validUrl(url)) {
     return res.status(404).json({ msg: "not found" });
   }
-
-  const id_user = req.body.id_user;
-  let exist = await Url.findOne({ url: url });
-  if (exist !== null) {
-    res.status(200).json({ url: `https://delc.herokuapp.com/${exist.code}` });
+  console.log(exist);
+  if (
+    (exist !== null && exist.id_user === id_user) ||
+    (exist !== null && exist.id_user === undefined)
+  ) {
+    return res
+      .status(200)
+      .json({ url: `https://delc.herokuapp.com/${exist.code}` });
   } else {
     let code = generator();
     const hits = 0;
@@ -27,7 +32,7 @@ router.post("/", async (req, res) => {
       id_user,
     });
     await newUrl.save();
-    res.status(201).json({ url: `https://delc.herokuapp.com/${code}` });
+    return res.status(201).json({ url: `https://delc.herokuapp.com/${code}` });
   }
 });
 
@@ -67,7 +72,7 @@ router.get("/url/:id", async (req, res, next) => {
 
 router.delete("/:code/:id_user", checkToken, async (req, res, next) => {
   const { id_user, code } = req.params;
-  const url = await Url.findOne({ code: code });
+  const url = await Url.findOne({ code: code, id_user: id_user });
   try {
     if (id_user === url.id_user && code === url.code) {
       url.deleteOne({ code: code });
