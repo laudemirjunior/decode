@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const checkToken = require("../functions/checkToken");
 const generator = require("../functions/generador");
@@ -5,6 +6,7 @@ const validUrl = require("../functions/validUrl");
 const Url = require("../models/Url");
 
 const router = express.Router();
+const domain = process.env.DOMAIN;
 
 router.post("/", async (req, res) => {
   const url = req.body.url;
@@ -15,9 +17,7 @@ router.post("/", async (req, res) => {
     return res.status(404).json({ msg: "not found" });
   }
   if (exist !== null) {
-    return res
-      .status(200)
-      .json({ url: `https://delc.herokuapp.com/${exist.code}` });
+    return res.status(200).json({ url: `${domain}${exist.code}` });
   } else {
     let code = generator();
     const hits = 0;
@@ -28,7 +28,7 @@ router.post("/", async (req, res) => {
       id_user,
     });
     await newUrl.save();
-    return res.status(201).json({ url: `https://delc.herokuapp.com/${code}` });
+    return res.status(201).json({ url: `${domain}${code}` });
   }
 });
 
