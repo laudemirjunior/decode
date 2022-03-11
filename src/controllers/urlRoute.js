@@ -52,10 +52,9 @@ router.get("/:id", async (req, res, next) => {
   if (url) {
     url.hits++;
     await url.save();
-    try {
-      url.url.split("//")[0] === "https:";
+    if (url.url.split("//")[0] === "https:") {
       return res.redirect(url.url);
-    } catch {
+    } else {
       return res.redirect(`https://${url.url}`);
     }
   } else {
