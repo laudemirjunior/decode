@@ -9,16 +9,12 @@ const router = express.Router();
 router.post("/", async (req, res) => {
   const url = req.body.url;
   const id_user = req.body.id_user;
-  let exist = await Url.findOne({ url: url, id_user: id_user });
+  let exist = await Url.findOne({ url: url });
 
   if (!validUrl(url)) {
     return res.status(404).json({ msg: "not found" });
   }
-  console.log(exist);
-  if (
-    (exist !== null && exist.id_user === id_user) ||
-    (exist !== null && exist.id_user === undefined)
-  ) {
+  if (exist !== null) {
     return res
       .status(200)
       .json({ url: `https://delc.herokuapp.com/${exist.code}` });
