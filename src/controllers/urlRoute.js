@@ -37,7 +37,7 @@ router.get("/", async (req, res, next) => {
   const newUrl = [];
 
   url.forEach((item) => {
-    if (item.url !== 0) {
+    if (item.hits !== 0) {
       newUrl.push({
         url: item.url,
         code: item.code,
