@@ -52,13 +52,17 @@ router.get("/:id", async (req, res, next) => {
   if (url) {
     url.hits++;
     await url.save();
-    if (url.url.split("/")[0] === "https:" || url.url.split(".")[0] === "www") {
+    if (
+      url.url.split("//")[0] === "https:" ||
+      url.url.split(".")[0] === "www"
+    ) {
       return res.redirect(url.url);
     } else {
-      return res.redirect(`https://delc.herokuapp.com/${url.url}`);
+      return res.redirect(`https://${url.url}`);
     }
+  } else {
+    return res.status(404).json({ msg: "not found" });
   }
-  return res.status(404).json({ msg: "not found" });
 });
 
 router.get("/url/:id", async (req, res, next) => {
