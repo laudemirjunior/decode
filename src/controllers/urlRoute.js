@@ -52,7 +52,7 @@ router.get("/:id", async (req, res, next) => {
   if (url) {
     url.hits++;
     await url.save();
-    if (url.url.split("/")[0] === "https:") {
+    if (url.url.split("/")[0] === "https:" || url.url.split(".")[0] === "www") {
       return res.redirect(url.url);
     } else {
       return res.redirect(`https://delc.herokuapp.com/${url.url}`);
