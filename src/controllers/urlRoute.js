@@ -36,13 +36,15 @@ router.get("/", async (req, res, next) => {
   const url = await Url.find().sort({ hits: -1 }).limit(100);
   const newUrl = [];
 
-  url.forEach((item) =>
-    newUrl.push({
-      url: item.url,
-      code: item.code,
-      hits: item.hits,
-    })
-  );
+  url.forEach((item) => {
+    if (item.url !== 0) {
+      newUrl.push({
+        url: item.url,
+        code: item.code,
+        hits: item.hits,
+      });
+    }
+  });
   res.status(200).send(newUrl);
 });
 
