@@ -20,7 +20,7 @@ router.post("/", async (req, res) => {
     return res.status(200).json({ url: `${domain}${exist.code}` });
   } else {
     let code = generator();
-    const hits = 0;
+    const hits = 1;
     const newUrl = new Url({
       code,
       url,
@@ -37,13 +37,11 @@ router.get("/", async (req, res) => {
   const newUrl = [];
 
   url.forEach((item) => {
-    if (item.hits !== 0) {
-      newUrl.push({
-        url: item.url,
-        code: item.code,
-        hits: item.hits,
-      });
-    }
+    newUrl.push({
+      url: item.url,
+      code: item.code,
+      hits: item.hits,
+    });
   });
   res.status(200).send(newUrl);
 });
