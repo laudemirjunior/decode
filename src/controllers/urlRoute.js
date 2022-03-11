@@ -56,7 +56,7 @@ router.get("/:id", async (req, res, next) => {
   if (url) {
     url.hits++;
     await url.save();
-    return res.redirect(`https://delc.herokuapp.com/${url.code}`);
+    return res.redirect(url.url);
   }
   return res.status(404).json({ msg: "not found" });
 });
